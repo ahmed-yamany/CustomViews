@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FoundationExtensions
 
 // swiftlint: disable all
 /**
@@ -22,27 +23,32 @@ open class UITabBarSelectionController: UITabBarController {
             return
         }
         
-        let itemView: UIView = tabBar.subviews[index+1]
+        guard let itemView: UIView = tabBar.subviews[safe: index+1] else {
+            return
+        }
+        
         let itemSubviews: [UIView] = itemView.subviews
+        
         // item view
         tabBarDidSelect(tabBar, item: item, view: itemView)
+        
         // item image
         if let imageView = itemSubviews.first as? UIImageView {
             tabBarDidSelect(tabBar, item: item, imageView: imageView)
         }
         
         // item label
-        if let titleLabel = itemSubviews[1] as? UILabel {
+        if let titleLabel = itemSubviews[safe: 1] as? UILabel {
             tabBarDidSelect(tabBar, item: item, titleLabel: titleLabel)
         }
     }
     
-    open func imageView(of item: UITabBarItem) -> UIImageView? {
+    open func imageView(for item: UITabBarItem) -> UIImageView? {
         guard let index = self.tabBar.items?.firstIndex(of: item) else {
             return nil
         }
         
-        let itemSubviews: [UIView] = tabBar.subviews[index+1].subviews
+        let itemSubviews: [UIView] = tabBar.subviews[safe: index+1]?.subviews ?? []
         return itemSubviews.first as? UIImageView
     }
     
@@ -78,9 +84,4 @@ open class UITabBarSelectionController: UITabBarController {
      - titleLabel: The `UILabel` associated with the selected tab.
      */
     open func tabBarDidSelect(_ tabBar: UITabBar, item: UITabBarItem, titleLabel: UILabel) {}
-    // MARK: - Helper Methods
-    
-    private func tabView(forItemAtIndex index: Int) -> UIView {
-        return tabBar.subviews[index + 1]
-    }
 }
