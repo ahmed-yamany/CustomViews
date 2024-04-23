@@ -1,9 +1,8 @@
 //
 //  AudioPlayer.swift
-//  DeshNDezz
 //
-//  Created by AbdAllah Tarek on 03/04/2024.
-//  Copyright © 2024 Desh and Dez. All rights reserved.
+//
+//  Created by Ahmed Yamany on 23/04/2024.
 //
 
 import UIKit
@@ -21,31 +20,31 @@ open class AudioPlayer: NibUIView {
     private var isPlaying: Bool = false
     private var playTimer: Timer?
     
-    open var timeTintColor: UIColor = .white {
+    @IBInspectable open var timeTintColor: UIColor = .black {
         didSet {
             timeLabel.textColor = timeTintColor
         }
     }
     
-    open var minimumTrackTintColor: UIColor = .blue {
+    @IBInspectable open var minimumTrackTintColor: UIColor = .blue {
         didSet {
             slider.minimumTrackTintColor = minimumTrackTintColor
         }
     }
     
-    open var maximumTrackTintColor: UIColor = .blue {
+    @IBInspectable open var maximumTrackTintColor: UIColor = .gray {
         didSet {
             slider.maximumTrackTintColor = maximumTrackTintColor
         }
     }
     
-    open var thumbTintColor: UIColor = .blue {
+    @IBInspectable open var thumbTintColor: UIColor = .black {
         didSet {
             configureSliderThumb()
         }
     }
     
-    open var buttonTintColor: UIColor = .blue {
+    @IBInspectable open var buttonTintColor: UIColor = .blue {
         didSet {
             playButton.tintColor = buttonTintColor
         }
